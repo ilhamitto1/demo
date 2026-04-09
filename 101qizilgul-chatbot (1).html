@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>101qizilgul.baku 🌸 - AI Çiçək Köməkçisi</title>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+--pink:#f4a0b5;--pink-light:#fce4ec;--pink-dark:#e07090;
+--cream:#fdf6f0;--white:#ffffff;--green-light:#e8f5e9;--green:#a5d6a7;
+--text:#3e2723;--text-light:#795548;--shadow:0 2px 16px rgba(0,0,0,.08);
+--radius:18px;
+}
+html{height:100%;-webkit-text-size-adjust:100%}
+body{
+height:100%;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+background:var(--cream);color:var(--text);overflow:hidden;
+display:flex;flex-direction:column;
+}
+body::before{
+content:'';position:fixed;inset:0;z-index:0;
+background:radial-gradient(ellipse at 20% 50%,rgba(244,160,181,.12),transparent 60%),
+radial-gradient(ellipse at 80% 30%,rgba(165,214,167,.10),transparent 60%),
+radial-gradient(ellipse at 50% 80%,rgba(244,160,181,.08),transparent 50%);
+pointer-events:none;
+}
+.petal{position:fixed;z-index:0;opacity:0;font-size:14px;pointer-events:none;animation:fall linear infinite}
+@keyframes fall{
+0%{transform:translateY(-20px) rotate(0);opacity:0}
+8%{opacity:.35}
+90%{opacity:.35}
+100%{transform:translateY(105vh) rotate(360deg) translateX(60px);opacity:0}
+}
+.app{display:flex;flex-direction:column;height:100%;height:100dvh;position:relative;z-index:1;max-width:680px;margin:0 auto;width:100%}
+.header{
+padding:14px 18px;
+background:rgba(255,255,255,.75);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+border-bottom:1px solid rgba(244,160,181,.2);
+flex-shrink:0;
+}
+.header h1{font-size:1.15rem;font-weight:700;color:var(--text)}
+.header p{font-size:.78rem;color:var(--text-light);margin-top:2px}
+.chat-area{
+flex:1;overflow-y:auto;overflow-x:hidden;
+padding:16px 14px;
+-webkit-overflow-scrolling:touch;
+display:flex;flex-direction:column;gap:10px;
+}
+.chat-area::-webkit-scrollbar{width:4px}
+.chat-area::-webkit-scrollbar-thumb{background:rgba(244,160,181,.3);border-radius:4px}
+.msg{display:flex;animation:fadeUp .3s ease both;max-width:88%}
+.msg.user{align-self:flex-end}
+.msg.bot{align-self:flex-start}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.bubble{
+padding:10px 15px;border-radius:var(--radius);font-size:.92rem;line-height:1.55;
+word-break:break-word;box-shadow:0 1px 4px rgba(0,0,0,.06);
+}
+.msg.user .bubble{background:var(--pink);color:#fff;border-bottom-right-radius:4px}
+.msg.bot .bubble{background:var(--white);color:var(--text);border-bottom-left-radius:4px;border:1px solid rgba(0,0,0,.04)}
+.typing{display:flex;gap:5px;align-items:center;padding:10px 16px}
+.typing span{width:7px;height:7px;background:var(--pink);border-radius:50%;animation:bounce .6s infinite alternate}
+.typing span:nth-child(2){animation-delay:.2s}
+.typing span:nth-child(3){animation-delay:.4s}
+@keyframes bounce{to{transform:translateY(-6px);opacity:.4}}
+.examples{display:flex;flex-wrap:wrap;gap:8px;padding:4px 0 8px}
+.ex-btn{
+background:rgba(255,255,255,.8);border:1px solid rgba(244,160,181,.3);
+padding:8px 14px;border-radius:20px;font-size:.82rem;color:var(--text);
+cursor:pointer;transition:all .2s;backdrop-filter:blur(8px);
+}
+.ex-btn:hover,.ex-btn:active{background:var(--pink-light);border-color:var(--pink)}
+.input-bar{
+flex-shrink:0;
+padding:10px 12px;
+padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));
+background:rgba(255,255,255,.8);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+border-top:1px solid rgba(244,160,181,.15);
+display:flex;gap:10px;align-items:center;
+}
+.input-bar input{
+flex:1;padding:12px 16px;border-radius:24px;border:1.5px solid rgba(244,160,181,.3);
+font-size:.95rem;background:var(--white);color:var(--text);outline:none;
+transition:border-color .2s;
+}
+.input-bar input:focus{border-color:var(--pink)}
+.input-bar input::placeholder{color:#bbb}
+.send-btn{
+width:44px;height:44px;border-radius:50%;border:none;
+background:var(--pink);color:#fff;font-size:1.2rem;
+cursor:pointer;display:flex;align-items:center;justify-content:center;
+transition:transform .15s,background .2s;flex-shrink:0;
+}
+.send-btn:active{transform:scale(.9)}
+.sendBtn:hover{background:var(--pink-dark)}
+@media(min-width:700px){
+.app{border-left:1px solid rgba(244,160,181,.12);border-right:1px solid rgba(244,160,181,.12);box-shadow:0 0 40px rgba(0,0,0,.04)}
+.chat-area{padding:20px}
+.msg{max-width:72%}
+}
+</style>
+</head>
+<body>
+
+<span class="petal" style="left:8%;font-size:12px;animation-duration:14s;animation-delay:0s">🌸</span>
+<span class="petal" style="left:25%;font-size:10px;animation-duration:18s;animation-delay:3s">🌷</span>
+<span class="petal" style="left:50%;font-size:13px;animation-duration:16s;animation-delay:1s">🌸</span>
+<span class="petal" style="left:72%;font-size:11px;animation-duration:20s;animation-delay:5s">🌷</span>
+<span class="petal" style="left:90%;font-size:12px;animation-duration:15s;animation-delay:7s">🌸</span>
+
+<div class="app">
+  <div class="header">
+    <h1>101qizilgul.baku 🌸</h1>
+    <p>Sizin şəxsi çiçək və hədiyyə köməkçiniz</p>
+  </div>
+
+  <div class="chat-area" id="chat"></div>
+
+  <div class="input-bar">
+    <input type="text" id="msgInput" placeholder="Sualınızı yazın..." autocomplete="off">
+    <button class="send-btn" id="sendBtn" aria-label="Göndər">🌸</button>
+  </div>
+</div>
+
+<script>
+const N8N_WEBHOOK_URL = "https://ilhamdosdiyev.app.n8n.cloud/webhook/gul-bot";
+
+const chat = document.getElementById('chat');
+const input = document.getElementById('msgInput');
+const sendBtn = document.getElementById('sendBtn');
+
+const WELCOME = `Salam 🌸 Mən 101qizilgul.baku çiçək köməkçisiyəm.\n\nSizə ən uyğun buketləri seçmək, hədiyyə ideyaları və çatdırılma barədə kömək edirəm.\n\nİstədiyinizi yazın, sizə ən gözəl çiçək seçimini tapım 💐`;
+
+const EXAMPLES = [
+  "Sevgilim üçün ən romantik buket hansıdır?",
+  "Ad günü üçün premium gül təklif et",
+  "100 qızılgül nə ifadə edir?",
+  "Sürpriz buket göndərmək istəyirəm"
+];
+
+function addMsg(text, sender) {
+  const d = document.createElement('div');
+  d.className = 'msg ' + sender;
+
+  const b = document.createElement('div');
+  b.className = 'bubble';
+  b.style.whiteSpace = 'pre-line';
+  b.textContent = text;
+
+  d.appendChild(b);
+  chat.appendChild(d);
+  scrollBottom();
+}
+
+function addWelcome() {
+  addMsg(WELCOME, 'bot');
+
+  const ex = document.createElement('div');
+  ex.className = 'examples';
+
+  EXAMPLES.forEach(q => {
+    const btn = document.createElement('button');
+    btn.className = 'ex-btn';
+    btn.textContent = q;
+    btn.onclick = () => {
+      ex.remove();
+      send(q);
+    };
+    ex.appendChild(btn);
+  });
+
+  chat.appendChild(ex);
+  scrollBottom();
+}
+
+function showTyping() {
+  const d = document.createElement('div');
+  d.className = 'msg bot';
+  d.id = 'typing';
+  d.innerHTML = '<div class="bubble typing"><span></span><span></span><span></span></div>';
+  chat.appendChild(d);
+  scrollBottom();
+}
+
+function hideTyping() {
+  const t = document.getElementById('typing');
+  if (t) t.remove();
+}
+
+function scrollBottom() {
+  requestAnimationFrame(() => {
+    chat.scrollTop = chat.scrollHeight;
+  });
+}
+
+async function send(text) {
+  const trimmed = text.trim();
+  if (!trimmed) return;
+
+  addMsg(trimmed, 'user');
+  input.value = '';
+  showTyping();
+
+  try {
+    const res = await fetch(N8N_WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: trimmed })
+    });
+
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}`);
+    }
+
+    const contentType = res.headers.get('content-type') || '';
+    let botText = '';
+
+    if (contentType.includes('application/json')) {
+      const data = await res.json();
+      botText =
+        data.reply ||
+        data.output ||
+        data.text ||
+        data.message ||
+        JSON.stringify(data);
+    } else {
+      botText = await res.text();
+    }
+
+    hideTyping();
+    addMsg(botText || 'Cavab gəlmədi.', 'bot');
+  } catch (err) {
+    console.error('Chat error:', err);
+    hideTyping();
+    addMsg('Xəta baş verdi, yenidən cəhd edin.', 'bot');
+  }
+}
+
+sendBtn.onclick = () => send(input.value);
+
+input.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    send(input.value);
+  }
+});
+
+function setVh() {
+  document.documentElement.style.setProperty('--vh', window.innerHeight + 'px');
+}
+window.addEventListener('resize', setVh);
+setVh();
+
+addWelcome();
+</script>
+</body>
+</html>
